@@ -24,7 +24,7 @@ jobs:
 
             - name: Create terraform.tfvars
               run: |
-                cat <<EOF > terraform/terraform.tfvars
+                cat <<EOF > terraform.tfvars
                 public_key   = "${{ secrets.TF_VAR_PUBLIC_KEY }}"
                 private_key  = "${{ secrets.TF_VAR_PRIVATE_KEY }}"
                 project_name = "${{ secrets.TF_VAR_PROJECT_NAME }}"
