@@ -14,8 +14,13 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v2
               
-            - name: Terraform version
-              run: terraform version
+            - name: Install dependencies
+              run: |
+                apt-get update
+                apt-get install -y unzip
+
+            - name: Set up Terraform
+              uses: hashicorp/setup-terraform@v2
 
             - name: Create terraform.tfvars
               run: |
@@ -31,6 +36,7 @@ jobs:
                 EOF
 
             - name: Initialize Terraform
+              id: init
               run: terraform init
 
             - name: Apply Terraform configuration
