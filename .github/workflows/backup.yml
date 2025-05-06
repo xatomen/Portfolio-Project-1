@@ -1,0 +1,33 @@
+# Workflow to backup a MongoDB Atlas database
+name: Backup MongoDB Atlas Database
+
+on:
+  schedule:
+    - cron: '0 16 * * *' # Runs every day at 4 PM UTC or 12 PM GMT-4
+  workflow_dispatch:
+  # Allows manual triggering of the workflow
+
+jobs:
+    backup:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+    
+        - name: Initialize MongoDB backup action
+          id: backup
+          uses: ./.github/backup-mongodb
+          with:
+            mongo-uri: ${{ secrets.MONGO_URI }}
+            db-name: '${ secrets.DB_NAME }}'
+            backup-dir: '${ secrets.BACKUP_DIR }}'
+            
+        - name: Upload backup to S3          
+          id: upload-backup
+          uses: ./.github/upload-backup-s3
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            backup-file-name: '${{ steps.backup.outputs.name-backup-file }}'
+            backup-dir: '${{ secrets.BACKUP_DIR }}'
