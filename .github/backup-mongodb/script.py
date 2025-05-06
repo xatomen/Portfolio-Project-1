@@ -13,7 +13,8 @@ print("Cargando variables de entorno...")
 MONGO_URI = os.getenv("MONGO_URI") # URI de conexión a MongoDB
 DB_NAME = os.getenv("DB_NAME") # Nombre de la base de datos a respaldar
 BACKUP_DIR = os.getenv("BACKUP_DIR", "/tmp/mongo_backup") # Directorio donde se guardará el backup
-BACKUP_FILE = os.path.join(BACKUP_DIR, f"{DB_NAME}_backup_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json") # Nombre del archivo de backup
+BACKUP_FILENAME = "{DB_NAME}_backup_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+BACKUP_FILE = os.path.join(BACKUP_DIR, BACKUP_FILENAME) # Nombre del archivo de backup
 
 # Crear el directorio de backup si no existe
 print(f"Creando directorio de backup en: {BACKUP_DIR}")
@@ -53,8 +54,8 @@ with tarfile.open(f"{BACKUP_FILE}.tar.gz", "w:gz") as tar:
     tar.add(BACKUP_FILE, arcname=os.path.basename(BACKUP_FILE))
 
 # Exportamos la ruta del archivo comprimido como output del action
-print(f"Exportando la ruta del archivo comprimido: {BACKUP_FILE}.tar.gz")
-os.environ["BACKUP_NAME"] = f"{BACKUP_FILE}.tar.gz"
+print(f"Exportando la ruta del archivo comprimido: {BACKUP_FILENAME}.tar.gz")
+os.environ["BACKUP_FILENAME"] = f"{BACKUP_FILENAME}.tar.gz"
 
 # Cerrar la conexión a MongoDB
 print("Cerrando conexión a MongoDB...")

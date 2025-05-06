@@ -41,4 +41,4 @@ runs:
     - name: Export backup file name
       shell: bash
       id: export-backup-name
-      run: echo "name-backup-file=${{ env.BACKUP_NAME }}" >> $GITHUB_OUTPUT
+      run: echo "name-backup-file=${{ env.BACKUP_FILENAME }}" >> $GITHUB_OUTPUT
