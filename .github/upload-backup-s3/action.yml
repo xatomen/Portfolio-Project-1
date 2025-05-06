@@ -32,6 +32,6 @@ runs:
     - name: Upload backup to S3
       shell: bash
       run: |
-        aws s3 cp ${{ github.workspace }}/${{ inputs.backup-dir }}/${{ inputs.backup-file-name }} s3://aws-bucket-portfolio-01/${{ inputs.backup-file-name }}
+        aws s3 cp ${{ inputs.backup-dir }}/${{ inputs.backup-file-name }} s3://aws-bucket-portfolio-01/${{ inputs.backup-file-name }}
       env:
         AWS_DEFAULT_REGION: us-east-2 # Cambia esto a la región de tu bucket S3
