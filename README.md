@@ -1,4 +1,4 @@
-# Proyecto: Gestión de Base de Datos MongoDB Atlas como IaC
+# Proyecto: Gestión de Base de Datos MongoDB Atlas como IaC y Backup en S3 Bucket
 
 ## Descripción
 Este proyecto tiene como objetivo crear un pipeline que permite gestionar una base de datos en MongoDB Atlas como Infraestructura como Código (IaC) utilizando Terraform. Además, incluye la capacidad de realizar backups de la base de datos y almacenarlos en un bucket S3 de AWS.
