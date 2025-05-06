@@ -1,0 +1,37 @@
+# Composite action to backup MongoDB database
+name: 'Backup MongoDB'
+description: 'Backup MongoDB database to a specified location'
+# Inputs
+inputs:
+  mongo-uri:
+    description: 'MongoDB connection URI'
+    required: true
+  db-name:
+    description: 'Name of the database to backup'
+    required: true
+  backup-dir:
+    description: 'Directory to store the backup'
+    required: true
+  backup-file:
+    description: 'Name of the backup file'
+    required: true
+# Steps
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      shell: python
+      run: pip install pymongo
+
+    - name: Run backup script
+      shell: python
+      env:
+          MONGO_URI: ${{ inputs.mongo-uri }}
+          DB_NAME: ${{ inputs.db-name }}
+          BACKUP_DIR: ${{ inputs.backup-dir }}
+          BACKUP_FILE: ${{ inputs.backup-file }}
+      run: |
+        python .github/backup-mongodb/script.py 
