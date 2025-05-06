@@ -17,15 +17,21 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - name: Install dependencies
+      shell: bash
+      run: pip install awscli
+
+    - name: Setup credentials
+      shell: bash
+      run: |
+        mkdir -p ~/.aws
+        echo "[default]" > ~/.aws/credentials
+        echo "aws_access_key_id=${{ inputs.aws-access-key-id }}" >> ~/.aws/credentials
+        echo "aws_secret_access_key=${{ inputs.aws-secret-access-key }}" >> ~/.aws/credentials
 
     - name: Upload backup to S3
-      uses: jakejarvis/s3-sync-action@master
-      with:
-        args: --acl public-read --follow-symlinks --delete --exact-timestamps --exclude "*" --include "${{ inputs.backup-dir }}/${{ inputs.backup-file-name }}""
+      shell: bash
+      run: |
+        aws s3 cp ${{ inputs.backup-dir }}/*.tar.gz s3://aws-bucket-portfolio-01/${{ inputs.backup-file-name }}
       env:
-        AWS_ACCESS_KEY_ID: ${{ inputs.aws-access-key-id }}
-        AWS_SECRET_ACCESS_KEY: ${{ inputs.aws-secret-access-key }}
-        AWS_REGION: 'us-east-2'
-        BUCKET_NAME: 'aws-bucket-portfolio-01'
+        AWS_DEFAULT_REGION: us-east-2 # Cambia esto a la región de tu bucket S3

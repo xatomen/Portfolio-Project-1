@@ -21,15 +21,15 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    # - name: Checkout repository
+    #   uses: actions/checkout@v2
 
     - name: Install dependencies
-      shell: python
-      run: pip install pymongo
+      shell: bash
+      run: pip install pymongo python-dotenv
 
     - name: Run backup script
-      shell: python
+      shell: bash
       env:
           MONGO_URI: ${{ inputs.mongo-uri }}
           DB_NAME: ${{ inputs.db-name }}
