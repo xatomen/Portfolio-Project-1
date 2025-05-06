@@ -52,6 +52,10 @@ print(f"Comprimendo el archivo de backup: {BACKUP_FILE}.tar.gz")
 with tarfile.open(f"{BACKUP_FILE}.tar.gz", "w:gz") as tar:
     tar.add(BACKUP_FILE, arcname=os.path.basename(BACKUP_FILE))
 
+# Exportamos la ruta del archivo comprimido como output del action
+print(f"Exportando la ruta del archivo comprimido: {BACKUP_FILE}.tar.gz")
+os.environ["BACKUP_NAME"] = f"{BACKUP_FILE}.tar.gz"
+
 # Cerrar la conexión a MongoDB
 print("Cerrando conexión a MongoDB...")
 client.close()

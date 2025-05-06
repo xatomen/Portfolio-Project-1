@@ -12,9 +12,11 @@ inputs:
   backup-dir:
     description: 'Directory to store the backup'
     required: true
-  backup-file:
+# Outputs
+outputs:
+  name-backup-file:
     description: 'Name of the backup file'
-    required: true
+    value: ${{ steps.export-backup-name.outputs.name-backup-file }}
 # Steps
 runs:
   using: 'composite'
@@ -35,3 +37,8 @@ runs:
           BACKUP_FILE: ${{ inputs.backup-file }}
       run: |
         python .github/backup-mongodb/script.py 
+
+    - name: Export backup file name
+      shell: bash
+      id: export-backup-name
+      run: echo "name-backup-file=${{ env.BACKUP_NAME }}" >> $GITHUB_OUTPUT
