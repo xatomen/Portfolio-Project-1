@@ -36,4 +36,4 @@ runs:
         AWS_SECRET_ACCESS_KEY: ${{ inputs.aws-secret-access-key }}
         AWS_REGION: 'us-east-2'
         AWS_S3_BUCKET: 'aws-bucket-portfolio-01'
-        SOURCE_DIR: ${{ inputs.backup-file-name }}
+        SOURCE_DIR: ${{ github.workspace }}/${{ inputs.backup-dir }}/${{ inputs.backup-file-name }}
