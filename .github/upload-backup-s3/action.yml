@@ -24,6 +24,7 @@ runs:
     - name: Setup credentials
       shell: bash
       run: |
+        mkdir -p ~/.aws
         echo "[default]" > ~/.aws/credentials
         echo "aws_access_key_id=${{ inputs.aws-access-key-id }}" >> ~/.aws/credentials
         echo "aws_secret_access_key=${{ inputs.aws-secret-access-key }}" >> ~/.aws/credentials
