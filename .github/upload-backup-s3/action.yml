@@ -25,11 +25,12 @@ runs:
       run: |
         ls
         cd ${{ inputs.backup-dir }}
+        ls
 
     - name: Upload backup to S3
       uses: jakejarvis/s3-sync-action@master
       with:
-        args: --acl public-read --follow-symlinks --delete 
+        args: --acl public-read --follow-symlinks --delete --exclude "*" --include "${{ inputs.backup-file-name }}"
       env:
         AWS_ACCESS_KEY_ID: ${{ inputs.aws-access-key-id }}
         AWS_SECRET_ACCESS_KEY: ${{ inputs.aws-secret-access-key }}
