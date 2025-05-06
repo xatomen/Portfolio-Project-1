@@ -26,7 +26,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: pip install pymongo
+      run: pip install pymongo python-dotenv
 
     - name: Run backup script
       shell: bash
