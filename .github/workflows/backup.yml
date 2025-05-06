@@ -21,7 +21,12 @@ jobs:
           with:
             mongo-uri: ${{ secrets.MONGO_URI }}
             db-name: ${{ vars.DB_NAME }}
-            backup-dir: ${{ vars.BACKUP_DIR }}
+            backup-dir: ${{ github.workspace }}/${{ vars.BACKUP_DIR }}
+
+        - name: Verify backup directory
+          run: |
+            echo "Listing files in backup directory..."
+            ls -l ${{ github.workspace }}/${{ vars.BACKUP_DIR }}
 
         - name: Upload backup to S3          
           id: upload-backup
@@ -30,4 +35,4 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             backup-file-name: ${{ steps.backup.outputs.name-backup-file }}
-            backup-dir: ${{ secrets.BACKUP_DIR }}
+            backup-dir: ${{ github.workspace }}/${{ secrets.BACKUP_DIR }}
