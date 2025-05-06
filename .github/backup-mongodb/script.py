@@ -12,7 +12,7 @@ load_dotenv()
 print("Cargando variables de entorno...")
 MONGO_URI = os.getenv("MONGO_URI") # URI de conexión a MongoDB
 DB_NAME = os.getenv("DB_NAME") # Nombre de la base de datos a respaldar
-BACKUP_DIR = os.getenv("BACKUP_DIR", "/tmp/mongo_backup") # Directorio donde se guardará el backup
+BACKUP_DIR = os.getenv("BACKUP_DIR") # Directorio donde se guardará el backup
 BACKUP_FILENAME = f"{DB_NAME}_backup_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
 BACKUP_FILE = os.path.join(BACKUP_DIR, BACKUP_FILENAME) # Nombre del archivo de backup
 
