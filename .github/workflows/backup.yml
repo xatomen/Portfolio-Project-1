@@ -25,7 +25,7 @@ jobs:
 
         - name: Verify backup directory
           run: |
-            echo "Listing files in backup directory..."
+            echo "Listing files in backup directory: ${{ github.workspace }}/${{ vars.BACKUP_DIR }}"
             ls -l ${{ github.workspace }}/${{ vars.BACKUP_DIR }}
 
         - name: Upload backup to S3          
