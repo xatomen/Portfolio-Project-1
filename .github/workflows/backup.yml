@@ -35,4 +35,4 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             backup-file-name: ${{ steps.backup.outputs.name-backup-file }}
-            backup-dir: ${{ github.workspace }}/${{ secrets.BACKUP_DIR }}
+            backup-dir: ${{ github.workspace }}/${{ vars.BACKUP_DIR }}
