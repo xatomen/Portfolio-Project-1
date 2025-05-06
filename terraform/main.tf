@@ -83,3 +83,15 @@ resource "mongodbatlas_project_ip_access_list" "ip_access_list" {
   project_id = mongodbatlas_project.project.id
   cidr_block = var.public_ip
 }
+
+# Configuramos backend de Terraform para almacenar el estado en S3 y DynamoDB
+terraform {
+  backend "s3" {
+    bucket         = "aws-bucket-portfolio-01"
+    key            = "terraform.tfstate"
+    region         = "us-east-2"
+    encrypt        = true
+    # dynamodb_table = "terraform-lock-table"
+    # use_lock_table = true
+  }
+}
