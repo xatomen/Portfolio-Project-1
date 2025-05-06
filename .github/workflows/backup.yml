@@ -21,7 +21,7 @@ jobs:
           with:
             mongo-uri: ${{ secrets.MONGO_URI }}
             db-name: ${{ vars.DB_NAME }}
-            backup-dir: ${{ secrets.BACKUP_DIR }}
+            backup-dir: ${{ vars.BACKUP_DIR }}
 
         - name: Upload backup to S3          
           id: upload-backup
