@@ -1,0 +1,28 @@
+# Subimos el backup a S3
+name: 'Upload Backup to S3'
+description: 'Upload backup file to Amazon S3 bucket'
+inputs:
+  aws-access-key-id:
+    description: 'AWS Access Key ID'
+    required: true
+  aws-secret-access-key:
+    description: 'AWS Secret Access Key'
+    required: true
+  backup-file-name:
+    description: 'Name of the backup file in S3'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Upload backup to S3
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete --exact-timestamps --exclude "*" --include "${{ inputs.backup-file-name }}" --include "${{ inputs.backup-file-name }}"
+      env:
+        AWS_ACCESS_KEY_ID: ${{ inputs.aws-access-key-id }}
+        AWS_SECRET_ACCESS_KEY: ${{ inputs.aws-secret-access-key }}
+        AWS_REGION: 'us-east-2'
+        BUCKET_NAME: 'aws-bucket-portfolio-01'
