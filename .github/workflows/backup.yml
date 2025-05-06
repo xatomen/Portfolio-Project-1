@@ -20,7 +20,7 @@ jobs:
           uses: ./.github/backup-mongodb
           with:
             mongo-uri: ${{ secrets.MONGO_URI }}
-            db-name: ${{ secrets.DB_NAME }}
+            db-name: ${{ vars.DB_NAME }}
             backup-dir: ${{ secrets.BACKUP_DIR }}
 
         - name: Upload backup to S3          
