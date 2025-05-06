@@ -24,7 +24,11 @@ runs:
       shell: bash
       run: |
         ls
-        cd ${{ inputs.backup-dir }}
+        echo "Moving to backup directory: tmp"
+        cd tmp
+        ls
+        echo "Moving to backup directory: mongo-backup"
+        cd mongo-backup
         ls
 
     - name: Upload backup to S3
