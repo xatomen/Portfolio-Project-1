@@ -73,7 +73,8 @@ resource "mongodbatlas_database_user" "db_user" {
   project_id = mongodbatlas_project.project.id
   auth_database_name = "admin"
   roles {
-    role_name     = "readWrite"
+    # Rol con todos los permisos en la base de datos
+    role_name     = "readWriteAnyDatabase"
     database_name = "admin"
   }
 }
